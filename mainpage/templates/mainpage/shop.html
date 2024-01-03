@@ -1,0 +1,54 @@
+{% extends 'mainpage/base.html' %} {% block maincontent %}
+
+<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+  <div class="filters w-full lg:w-1/4 p-4 bg-gray-200">
+    <form method="get" action=".">
+      <div class="mb-3">
+        <label for="search" class="block text-gray-700 text-sm font-bold mb-2">Search</label>
+        <div class="flex">
+          <input
+            id="search"
+            type="text"
+            name = "query"
+            class="shadow appearance-none border rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Search"
+          />
+          <button type="submit" class="bg-blue-400 rounded-r border-0 p-2">
+            <i class="fas fa-search text-white"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <h3 class"mt-6 mb-3 text-xl uppercase">Catagories</h3>
+    <ul class="space-y-2">
+      <li class="{% if not active_category %}text-green-500{% else %}text-gray-500 hover:text-gray-700{% endif %}">
+          <a href="{% url 'shop' %}">All Cartharies</a>
+      </li>
+      {% for category in categories %}
+          {% if category.product_set.exists %}
+              <li>
+                  <a href="{% url 'shop' %}?category={{ category.slug }}"
+                     class="{% if category.slug == active_category %}text-green-500{% else %}text-gray-500 hover:text-gray-700{% endif %}">
+                      {{ category.name }}
+                  </a>
+              </li>
+          {% endif %}
+      {% endfor %}
+    </ul>
+    
+    
+  
+  
+  
+  
+  
+  </div>
+
+  <div class="products w-full lg:w-3/4 flex items-center flex-wrap">
+    {% for product in products %}
+    {%include 'product/partials/product_list_item.html'%}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

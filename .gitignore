@@ -1,0 +1,17 @@
+
+__pycache__/
+data/candles
+build/
+.venv/
+/venv
+CMakeLists.txt.user
+*.db
+*.so
+/results/
+*.db-shm
+*.db-wal
+/__pycache__
+.pyc
+/venv
+/.venv
+*.csv
