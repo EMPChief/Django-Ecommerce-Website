@@ -12,12 +12,13 @@
   <div class="bg-white rounded-lg shadow p-5">
     <a href="{%url 'product' product.slug %}"><h3 class="mb-3 text-lg font-semibold text-gray-700">{{product.name}}</h3></a>
     <p class="text-blue-400 mb-3">${{product.price}}</p>
-    <a
-      href="{%url 'product' product.slug %}"
-      class="text-green-500 hover:text-green-700 flex items-center justify-between"
-    >
-      <span>Add to Cart</span>
-      <i class="fas fa-shopping-cart"></i>
-    </a>
+    <a href="#" 
+    class="text-green-500 hover:text-green-700 flex items-center justify-between"
+    hx-get="{% url 'add_to_cart' product.id %}"
+    hx-target="#menu-cart-button"
+    hx-swap="outerHTML">
+     <span>Add to Cart</span>
+     <i class="fas fa-shopping-cart"></i>
+ </a>
   </div>
 </div>
