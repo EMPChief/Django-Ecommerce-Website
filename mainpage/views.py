@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from product.models import Product, Category
 from django.db.models import Q
+from django.contrib.auth import login
+from .forms import SignUpForm
 # Create your views here.
 
 
@@ -11,12 +13,23 @@ def frontpage(request):
 
 
 def signup(request):
-    return render(request,'mainpage/signup.html')
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            
+            login(request, user)
+            
+            return redirect('/')
+    else:
+        form = SignUpForm()
+    context = {'form': form}
+    return render(request,'mainpage/signup.html', context)
 
 
 
 
-def login(request):
+def login_new(request):
     return render(request,'mainpage/login.html')
 
 
