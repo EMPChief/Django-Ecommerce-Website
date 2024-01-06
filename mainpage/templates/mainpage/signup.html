@@ -12,12 +12,13 @@
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                        placeholder="Enter your email">
             </div>
-            <div>
-                <label for="phone_number">Phone Number:</label>
-                <input type="tel" id="phone_number" name="phone_number" required 
-                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       placeholder="Enter your phone number">
+            <div class="mb-4">
+                <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" class="form-control border-gray-300 rounded-lg focus:border-blue-500">
+
             </div>
+
+            
             <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required 
@@ -107,5 +108,13 @@
         </form>
     </div>
 </div>
+<script>
+    var input = document.querySelector("#phone_number");
+    intlTelInput(input, {
+        initialCountry: "no",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" 
+    });
+</script>
+
 
 {% endblock %}
