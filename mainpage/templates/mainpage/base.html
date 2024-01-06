@@ -18,8 +18,7 @@
           <a
             href="/"
             class="py-4 text-lg text-blue-600 font-semibold hover:text-blue-800"
-            >EMP Shopping</a
-          >
+            >EMP Shopping</a>
           <ul class="flex items-center space-x-4">
             <li>
               <a
@@ -31,6 +30,19 @@
             <li>
               <a href="#" class="text-green-500 hover:text-green-700">About</a>
             </li>
+            {% if request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'logout' %}" class="text-green-500 hover:text-green-700">Log Out</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'login' %}" class="text-green-500 hover:text-green-700">Log In</a>
+            </li>
+            <li>
+                <a href="{% url 'signup' %}" class="text-green-500 hover:text-green-700">Sign Up</a>
+            </li>
+        {% endif %}
+        
           </ul>
         </div>
         <div class="menu-right flex items-center space-x-6">

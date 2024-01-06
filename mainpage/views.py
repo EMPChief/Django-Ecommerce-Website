@@ -3,7 +3,14 @@ from product.models import Product, Category
 from django.db.models import Q
 from django.contrib.auth import login
 from .forms import SignUpForm
-# Create your views here.
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def custom_logout(request):
+    logout(request)
+    return redirect('frontpage')
+
+
 
 
 def frontpage(request):
