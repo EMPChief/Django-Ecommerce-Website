@@ -123,5 +123,12 @@
       </div>
     </footer>
     <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <script>
+      var input = document.querySelector("#phone_number");
+      intlTelInput(input, {
+          initialCountry: "no",
+          utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" 
+      });
+  </script>
   </body>
 </html>

@@ -15,7 +15,6 @@
             <div class="mb-4">
                 <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
                 <input type="tel" id="phone_number" name="phone_number" class="form-control border-gray-300 rounded-lg focus:border-blue-500">
-
             </div>
 
             
@@ -108,13 +107,7 @@
         </form>
     </div>
 </div>
-<script>
-    var input = document.querySelector("#phone_number");
-    intlTelInput(input, {
-        initialCountry: "no",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" 
-    });
-</script>
+
 
 
 {% endblock %}
