@@ -23,7 +23,7 @@
   </div>
 
   <div class="image w-full mb-6 lg:mb-0 lg:w-3/5 order-1 lg:order-2">
-    <img class="rounded-xl" src="{{product.image.url}}" alt="{{ product.name }} image"/>
+    <img class="rounded-xl" src="{%if product.image%}{{product.image.url}} {%else%}https://placeholder.com/240x240x.jpg{%endif%}" alt="{{ product.name }} image"/>
   </div>
 </div>
 {% endblock %}
