@@ -1,11 +1,11 @@
-from django.contrib import admin
-from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from mainpage.views import frontpage, shop, signup, login_new, custom_logout, custom_login
-from product.views import product
+from django.contrib import admin
 from django.contrib.auth import views
-from cart.views import add_to_cart
+from django.urls import path
+from cart.views import add_to_cart, cart
+from mainpage.views import custom_login, custom_logout, frontpage, login_new, shop, signup
+from product.views import product
 
 urlpatterns = [
     path('', frontpage, name='frontpage'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('logout/', custom_logout, name='logout'),
     path('login/', custom_login, name='login'),
     path('shop/<slug:slug>/', product, name='product'),
+    path('cart/', cart, name='cart'),
     path('add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
