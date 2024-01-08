@@ -1,17 +1,27 @@
-<div class="product mb-6 flex pr-6"> 
+<div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}"> 
     <a href="#" class="product-image w-1/4">
-        <img class="hover:shadow-lg rounded-xl" src="{{item.product.get_thumbnail}}" alt="Random Product Image">
+        <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}" alt="{{ item.product.name }}">
     </a>
     <div class="product-details w-3/4 pl-6">
         <div class="flex justify-between">
             <a href="#" class="product-name text-xl font-semibold">{{ item.product.name }}</a>
-            <span class="product-price mb-6 pt-1 text-green-500">${{item.total_price}}</span>
+            <span class="product-price mb-6 pt-1 text-green-500">${{ item.total_price }}</span>
         </div>
         <hr>
         <div class="product-quantity-controls mt-6 flex items-center space-x-4">
-            <a href="#" class="quantity-increase p-3 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer" aria-label="Increase quantity">+</a>
-            <span class="quantity-number p-3">{{item.quantity}}</span>
-            <a href="#" class="quantity-decrease p-3 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer" aria-label="Decrease quantity">-</a>
+            <a 
+                class="quantity-increase p-3 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer"
+                hx-get="{% url 'update_cart' item.product.id 'increment' %}"
+                hx-target="#cart-item-{{ item.product.id }}"
+                hx-swap="outerHTML"
+                aria-label="Increase quantity">+</a>
+            <span class="quantity-number p-3">{{ item.quantity }}</span>
+            <a
+                class="quantity-decrease p-3 bg-gray-100 hover:bg-gray-200 rounded cursor-pointer"
+                hx-get="{% url 'update_cart' item.product.id 'decrement' %}"
+                hx-target="#cart-item-{{ item.product.id }}"
+                hx-swap="outerHTML"
+                aria-label="Decrease quantity">-</a>
         </div>
     </div>
 </div>
