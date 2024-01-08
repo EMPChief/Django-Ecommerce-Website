@@ -26,19 +26,28 @@ def custom_login(request):
     return render(request, 'accounts/login.html')
 
 
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            
-            login(request, user)
-            
-            return redirect('/')
+            # Authenticate the user
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('/')  # Redirect to the home page or dashboard
+
+        # If the form is not valid, fall through to re-render the form with validation errors
     else:
         form = SignUpForm()
+
     context = {'form': form}
-    return render(request,'accounts/signup.html', context)
+    return render(request, 'accounts/signup.html', context)
+
 
 
 @login_required
