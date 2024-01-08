@@ -44,3 +44,17 @@ def signup(request):
 @login_required
 def myaccount(request):
     return render(request, 'accounts/myaccount.html')
+
+@login_required
+def edit_myaccount(request):
+    if request.method == 'POST':
+        user = request.user
+        user.username = request.POST.get('username')
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.emaIL = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        user.save()
+        return redirect('myaccount')
+        
+    return render(request, 'accounts/edit_myaccount.html')

@@ -9,6 +9,7 @@
         <strong class="text-xl">Username:</strong> {{ request.user.username }}<br>
         <strong class="text-xl">Phone:</strong> {{ request.user.phone }}<br>
         <strong class="text-xl">Email:</strong> {{ request.user.email }}<br>
+        <a href="{% url 'edit_myaccount' %}" class="text-blue-500"><button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Edit</button></a>
     </div>
     <hr>
     <div>
