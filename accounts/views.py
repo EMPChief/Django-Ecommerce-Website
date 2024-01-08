@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.contrib import messages
 
-# Create your views here.
+
 def custom_logout(request):
     logout(request)
     return redirect('frontpage')
@@ -40,7 +41,6 @@ def signup(request):
     return render(request,'accounts/signup.html', context)
 
 
-
-
-def login_new(request):
-    return render(request,'mainpage/login.html')
+@login_required
+def myaccount(request):
+    return render(request, 'accounts/myaccount.html')
