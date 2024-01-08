@@ -26,7 +26,6 @@ def update_cart(request, product_id, action):
 
     cart.add(product_id, new_quantity, update_quantity=True)
 
-    # ... rest of your view logic ...
 
 
     quantity = cart.get_item(product_id)['quantity']
