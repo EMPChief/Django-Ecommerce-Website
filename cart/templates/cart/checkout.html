@@ -12,35 +12,35 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block mb-2 text-sm font-medium" for="first_name">First Name</label>
-                            <input type="text" id="first_name" name="first_name" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.first_name }}"> 
+                            <input type="text" id="order_first_name" name="first_name" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.first_name }}"> 
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium" for="last_name">Last Name</label>
-                            <input type="text" id="last_name" name="last_name" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.last_name }}">
+                            <label class="block mb-2 text-sm font-medium" for="order_last_name">Last Name</label>
+                            <input type="text" id="order_last_name" name="order_last_name" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.last_name }}">
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium" for="zip_code">Zip Code</label>
-                            <input type="text" id="zip_code" name="zip_code" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.zip_postal_code }}"> 
+                            <label class="block mb-2 text-sm font-medium" for="order_zip_code">Zip Code</label>
+                            <input type="text" id="order_zip_code" name="order_zip_code" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.zip_postal_code }}"> 
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium" for="city">City/Place</label>
-                            <input type="text" id="city" name="city" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.city }}">
+                            <label class="block mb-2 text-sm font-medium" for="order_city">City/Place</label>
+                            <input type="text" id="order_city" name="order_city" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.city }}">
                         </div>
                         <div class="md:col-span-2">
                             <label class="block mb-2 text-sm font-medium" for="address1">Address 1</label>
-                            <input type="text" id="address1" name="address1" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.address }}">
+                            <input type="text" id="order_address1" name="order_address1" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.address }}">
                         </div>
                     </div>
                 </div>
                 <div class="mb-6 p-6 bg-blue-100 rounded-xl">
                     <h2 class="mb-5 text-xl font-semibold">Contact Information</h2>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium" for="email">Email</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.email }}">
+                        <label class="block mb-2 text-sm font-medium" for="order_email">Email</label>
+                        <input type="order_email" id="email" name="order_email" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.email }}">
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium" for="phone_number">Phone Number</label>
-                        <input type="tel" id="phone_number" name="phone_number" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.phone_number }}">
+                        <label class="block mb-2 text-sm font-medium" for="order_phone_number">Phone Number</label>
+                        <input type="tel" id="order_phone_number" name="order_phone_number" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.phone_number }}">
                     </div>
                 </div>
 

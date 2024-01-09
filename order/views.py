@@ -1,17 +1,34 @@
-from django.shortcuts import render
-from .models import order, OrderItem
+from django.shortcuts import render, redirect
+from .models import OrderMain, OrderItem
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
 
-# Create your views here.
+@login_required 
 def start_order(request):
+    cart = Cart(request)
     if request.method == 'POST':
-        order_first_name = request.POST['first_name']
-        order_last_name = request.POST['last_name']
-        order_email = request.POST['email']
-        order_phone = request.POST['phone']
-        order_address = request.POST['address']
-        order_zip_code = request.POST['zip_code']
-        order_city = request.POST['city']
-        order_state = request.POST['state']
-        order_country = request.POST['country']
-        
-        order = Order.objects.create(.user, order_first_name=order_first_name)
+        order_first_name = request.POST.get('first_name')
+        order_last_name = request.POST.get('last_name')
+        order_email = request.POST.get('email')
+        order_phone = request.POST.get('phone')
+        order_address = request.POST.get('address')
+        order_zip_code = request.POST.get('zip_code')
+        order_city = request.POST.get('city')
+        order_state = request.POST.get('state')
+        order_country = request.POST.get('country')
+        order = OrderMain.objects.create(
+            order_user=request.user,
+            order_email=order_email,
+            order_address=order_address,
+            order_city=order_city,
+            order_state_province=order_state,
+            order_zip_postal_code=order_zip_code,
+            order_country=order_country,
+        )
+        for item in cart():
+            product = item['product']
+            quantity = int(item['quantity'])
+            price = product.price * quantity
+            item = OrderItem.objects.create(order=order, product=product, quantity=quantity, price=price)
+        return redirect('myaccount')
+    return redirect('cart')
