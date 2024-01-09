@@ -9,3 +9,8 @@ class UserProfile(models.Model):
     state_province = models.CharField(max_length=100, blank=True, null=True)
     zip_postal_code = models.CharField(max_length=12, blank=True, null=True)
     country = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.email} | {self.user.username}'
+    
+    

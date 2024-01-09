@@ -15,7 +15,13 @@
         
         <div class="summary-total mb-6 flex justify-between">
             <span class="total-label text-xl font-semibold">Total</span>
-            <span class="total-amount text-xl font-semibold">${{cart.get_total_price}}</span>
+            <span class="total-amount text-xl font-semibold"
+                hx-get="{% url 'hx_cart_total' %}"
+                hx-trigger="update-menu-cart from body"
+                hx-swap="innerHTML">
+                  {% include 'cart/partials/cart_total.html' %}
+              </div>
+            </span>
         </div>
         <a href="{%url 'checkout'%}" class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
             Checkout
