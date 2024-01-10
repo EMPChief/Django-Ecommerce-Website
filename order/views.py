@@ -42,15 +42,15 @@ def start_order(request):
     )
     payment_intent = session.payment_intent
 
-    order_first_name = data['order_first_name']
-    order_last_name = data['order_last_name']
-    order_email = data['order_email']
-    order_phone = data['order_phone']
-    order_address = data['order_address1']
-    order_zip_postal_code = data['order_zip_postal_code']
-    order_city = data['order_city']
-    order_state_province = data['order_state_province']
-    order_country = data['order_country']
+    order_first_name = data.get('order_first_name')
+    order_last_name = data.get('order_last_name')
+    order_email = data.get('order_email')
+    order_phone = data.get('order_phone', '')
+    order_address = data.get('order_address1')
+    order_zip_postal_code = data.get('order_zip_postal_code')
+    order_city = data.get('order_city')
+    order_state_province = data.get('order_state_province')
+    order_country = data.get('order_country')
     order = OrderMain.objects.create(
         user=request.user,
         order_email=order_email,
