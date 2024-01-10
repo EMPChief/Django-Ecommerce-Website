@@ -55,4 +55,6 @@ class Cart(object):
         return sum(item.get('total_price', 0) for item in self.cart.values())
     
     def get_item(self, product_id):
-        return self.cart.get(str(product_id), None)
+        if str(product_id) in self.cart:
+            return self.cart[str(product_id)]
+        return None

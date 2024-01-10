@@ -28,19 +28,23 @@ def update_cart(request, product_id, action):
 
 
 
-    quantity = cart.get_item(product_id)['quantity']
+    quantity = cart.get_item(product_id)
+    if quantity:
+        quantity = quantity['quantity'] 
 
-    item = {
-        'product': {
-            'id': product.id, 
-            'name': product.name, 
-            'image': product.image, 
-            'get_thumbnail': product.get_thumbnail(), 
-            'price': product.price
-        },
-        'total_price': (quantity * product.price),
-        'quantity': quantity
-    }
+        item = {
+            'product': {
+                'id': product.id, 
+                'name': product.name, 
+                'image': product.image, 
+                'get_thumbnail': product.get_thumbnail(), 
+                'price': product.price
+            },
+            'total_price': (quantity * product.price),
+            'quantity': quantity
+        }
+    else:
+        item = None
 
     response = render(request, 'cart/menu_cart.html', {'cart': cart, 'item': item})
     response['HX-Trigger'] = 'update-menu-cart'
