@@ -42,27 +42,27 @@ def start_order(request):
     )
     payment_intent = session.payment_intent
 
-    order_first_name = request.data('order_first_name')
-    order_last_name = request.data('order_last_name')
-    order_email = request.data('order_email')
-    order_phone = request.data('order_phone')
-    order_address = request.data('order_address1')
-    order_zip_postal_code = request.data('order_zip_postal_code')
-    order_city = request.data('order_city')
-    order_state_province = request.data('order_state_province')
-    order_country = request.data('order_country')
+    order_first_name = data['order_first_name']
+    order_last_name = data['order_last_name']
+    order_email = data['order_email']
+    order_phone = data['order_phone']
+    order_address = data['order_address1']
+    order_zip_postal_code = data['order_zip_postal_code']
+    order_city = data['order_city']
+    order_state_province = data['order_state_province']
+    order_country = data['order_country']
     order = OrderMain.objects.create(
-            user=request.user,
-            order_email=order_email,
-            order_address=order_address,
-            order_city=order_city,
-            order_state_province=order_state_province,
-            order_zip_postal_code=order_zip_postal_code,
-            order_country=order_country,
-            )
+        user=request.user,
+        order_email=order_email,
+        order_address=order_address,
+        order_city=order_city,
+        order_state_province=order_state_province,
+        order_zip_postal_code=order_zip_postal_code,
+        order_country=order_country,
+    )
     order.payment_intent = payment_intent
     order.paid_amount = total_price
-    order.paid=True
+    order.paid = True
     order.save()
 
     for item in cart:
@@ -71,4 +71,4 @@ def start_order(request):
         price = product.price * quantity
         OrderItem.objects.create(order=order, product=product, quantity=quantity, price=price)
 
-    return JsonResponse({'session': session, 'order':payment_intent})
+    return JsonResponse({'session': session, 'order': payment_intent})

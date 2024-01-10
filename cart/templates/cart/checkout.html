@@ -43,7 +43,7 @@
                     <h2 class="mb-5 text-xl font-semibold">Contact Information</h2>
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-medium" for="order_email">Email</label>
-                        <input type="order_email" id="email" name="order_email" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.email }}">
+                        <input type="email" id="order_email" name="order_email" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.email }}">
                     </div>
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-medium" for="order_phone_number">Phone Number</label>
@@ -53,12 +53,10 @@
 
                 <div class="mb-6 p-6 bg-blue-100 rounded-xl">
                     <h2 class="mb-5 text-xl font-semibold">Payment Information</h2>
-
+                    <!-- Add your payment information fields here -->
                 </div>
             </div>
-
         </div>
-
 
         <div class="summary w-full lg:w-1/3 px-3">
             <div class="p-8 bg-blue-100 rounded-xl mt-3 lg:mt-0">
@@ -69,7 +67,7 @@
                 </div>
                 <button onclick="buy(event)" class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
                     Confirm Checkout
-                </>
+                </button>
             </div>
         </div>
     </div>
@@ -77,51 +75,86 @@
 
 {% endblock %}
 
-{%block javascript%}
-    <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
-    <script>
-        function validateForm(data){
-            let errors = []
-            if (data.order_first_name == ''){
-                error.push('First Name is required')}
-            if (data.order_last_name == ''){
-                error.push('Last Name is required')}
-            if (data.order_state_province == ''){
-                error.push('State Province is required')}
-            if (data.order_country == ''){
-                error.push('Country is required')}
-            if (data.order_zip_postal_code == ''){
-                error.push('Zip Code is required')}
-            if (data.order_city == ''){
-                error.push('City/Place is required')}
-            if (data.order_address1 == ''){
-                error.push('Address 1 is required')}
-            if (data.order_email == ''){
-                error.push('Email is required')}
-            if (data.order_phone_number == ''){
-                error.push('Phone Number is required')}
-            if (data.order_email == ''){
-                error.push('Email is required')}
-            console.log(errors)
-            return errors}
-
-        function buy(event){
-            event.preventDefault();
-            let data = {
-                'csrfmiddlewaretoken': '{{ csrf_token }}',
-                'order_first_name': document.getElementById('order_first_name').value,
-                'order_last_name': document.getElementById('order_last_name').value,
-                'order_state_province': document.getElementById('order_state_province').value,
-                'order_country': document.getElementById('order_country').value,
-                'order_zip_postal_code': document.getElementById('order_zip_postal_code').value,
-                'order_city': document.getElementById('order_city').value,
-                'order_address1': document.getElementById('order_address1').value,
-                'order_email': document.getElementById('order_email').value,
-                'order_phone_number': document.getElementById('order_phone_number').value,
-            }
-            let errors = validateForm(data)
-
-            return false
+{% block javascript %}
+<script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+<script>
+    function validateForm(data){
+        let errors = [];
+        if (data.order_first_name == ''){
+            errors.push('First Name is required');
         }
-    </script>
-{%endblock%}
+        if (data.order_last_name == ''){
+            errors.push('Last Name is required');
+        }
+        if (data.order_state_province == ''){
+            errors.push('State Province is required');
+        }
+        if (data.order_country == ''){
+            errors.push('Country is required');
+        }
+        if (data.order_zip_postal_code == ''){
+            errors.push('Zip Code is required');
+        }
+        if (data.order_city == ''){
+            errors.push('City/Place is required');
+        }
+        if (data.order_address1 == ''){
+            errors.push('Address 1 is required');
+        }
+        if (data.order_email == ''){
+            errors.push('Email is required');
+        }
+        if (data.order_phone_number == ''){
+            errors.push('Phone Number is required');
+        }
+        console.log(errors);
+        return errors;
+    }
+
+    function buy(event){
+        event.preventDefault();
+        let data = {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'order_first_name': document.getElementById('order_first_name').value,
+            'order_last_name': document.getElementById('order_last_name').value,
+            'order_state_province': document.getElementById('order_state_province').value,
+            'order_country': document.getElementById('order_country').value,
+            'order_zip_postal_code': document.getElementById('order_zip_postal_code').value,
+            'order_city': document.getElementById('order_city').value,
+            'order_address1': document.getElementById('order_address1').value,
+            'order_email': document.getElementById('order_email').value,
+            'order_phone_number': document.getElementById('order_phone_number').value,
+        };
+        let errors = validateForm(data);
+
+        if (errors.length){
+            console.log(errors);
+        } else{
+            var stripe = Stripe('{{ pub_key }}');
+
+            fetch('/order/start_order/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            }).then(function(response) {
+                return response.json();
+            }).then(function(session) {
+                return stripe.redirectToCheckout({sessionId: session.session.id});
+            }).then(function(result) {
+                if(result.error){
+                    alert(result.error.message);
+                }
+            }).catch(function(error) {
+                console.log('error:', error);
+            });
+        }
+
+        return false;
+    }
+</script>
+{% endblock %}
+
