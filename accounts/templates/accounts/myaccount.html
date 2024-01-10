@@ -5,74 +5,53 @@
 <div class="max-w-6xl mx-auto p-6">
     <h1 class="mb-5 text-3xl font-bold text-center">My Account</h1>
     <div class="mb-6">
+        <!-- User Information -->
         <strong class="text-xl">Full Name:</strong> {{ request.user.get_full_name }}<br>
         <strong class="text-xl">Username:</strong> {{ request.user.username }}<br>
         <strong class="text-xl">Phone:</strong> {{ request.user.phone }}<br>
         <strong class="text-xl">Email:</strong> {{ request.user.email }}<br>
-        <a href="{% url 'edit_myaccount' %}" class="text-blue-500"><button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Edit</button></a>
+        <a href="{% url 'edit_myaccount' %}" class="inline-block mt-3">
+            <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Edit</button>
+        </a>
     </div>
     <hr>
-    <div>
+    <div class="orders-section">
         <h2 class="mb-5 text-3xl font-bold text-center">My Orders</h2>
-        <div class="w-full mb-6 p-6 flex flex-wrap bg-blue-100 rounded-xl">
-            {%for order in request.user.OrderMain.all%}
-            <div class="mb-6 flex justify-between">
-                <span>Order ID: 12345</span>
+        {% for order in request.user.ordermain_set.all %}
+            <div class="order w-full mb-6 p-6 bg-blue-100 rounded-xl">
+                <div class="order-header mb-6">
+                    <span class="order-id">Order ID: {{ order.id }}</span><br>
+                    <span class="order-date">Date: {{ order.order_created_at }}</span><br>
+                    <span class="order-status">Status: {{ order.get_status_display }}</span>
                 </div>
-                <div class="mb-6 w-full">
-                    <div class="product mb-6 flex pr-6">
-                        <a href="#" class="product-image w-1/4"> 
-                            <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
-                        </a>
-                        <div class="product-info w-3/4 pl-6">
-                            <div class="product-name flex justify-between">
-                                <a href="#" class="text-lg font-bold">Product Name</a>
-                                <p class="mb-6 pt-1 text-gray-400">$999.1</p>
+                <div class="order-items">
+                    {% for item in order.orderitem_set.all %}
+                        <div class="product mb-6 flex">
+                            <a href="#" class="product-image w-1/4"> 
+                                <img class="hover-shadow-lg rounded-xl" src="{{item.product.get_thumbnail}}" alt="Product Image">
+                            </a>
+                            <div class="product-info w-3/4 pl-6">
+                                <div class="product-name flex justify-between">
+                                    <a href="#" class="text-lg font-bold">{{ item.product.name }}</a>
+                                    <p class="text-gray-400">${{ item.product.price }}</p>
+                                </div>
+                                <div class="product-details mt-6">
+                                    <p>Quantity: {{ item.quantity }}</p>
+                                    <p>Price: ${{ item.price }}</p>
+                                </div>
                             </div>
-                            <hr>
-                            <div class="mt-6">
-                                <p>Quantity: 1</p>
-                                <p>Date: 2024-01-08</p>
-                            </div>
-                            <!-- Additional Product Info Here -->
                         </div>
-                    </div>
-                    <!-- Total Price for Order -->
-                    <div class="flex justify-end text-xl font-bold">
-                        <span>Total Price: $999.1</span>
-                    </div>
+                    {% empty %}
+                        <p class="text-center">No items in this order.</p>
+                    {% endfor %}
                 </div>
-                <!-- Additional orders can be similarly added -->
-                            <!-- Example Order -->
-                            <div class="mb-6 flex justify-between">
-                                <span>Order ID: 12345</span>
-                            </div>
-                            <div class="mb-6 w-full">
-                                <div class="product mb-6 flex pr-6">
-                                    <a href="#" class="product-image w-1/4"> 
-                                        <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
-                                    </a>
-                                    <div class="product-info w-3/4 pl-6">
-                                        <div class="product-name flex justify-between">
-                                            <a href="#" class="text-lg font-bold">Product Name</a>
-                                            <p class="mb-6 pt-1 text-gray-400">$999.1</p>
-                                        </div>
-                                        <hr>
-                                        <div class="mt-6">
-                                            <p>Quantity: 1</p><br>
-                                            <p>Date: {{order.created_at}}</p>
-                                        </div>
-                                        <!-- Additional Product Info Here -->
-                                    </div>
-                                </div>
-                                <!-- Total Price for Order -->
-                                <div class="flex justify-end text-xl font-bold">
-                                    <span>Total Price: $999.1</span>
-                                </div>
-                            </div>
-                            <!-- Additional orders can be similarly added -->
-                            {%endfor%}
-        </div>
+                <div class="order-total flex justify-end text-xl font-bold">
+                    <span>Total Price: ${{ order.paid_amount }}</span>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No orders found.</p>
+        {% endfor %}
     </div>
 </div>
 
