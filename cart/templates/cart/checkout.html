@@ -1,12 +1,10 @@
 {% extends 'mainpage/base.html' %} 
 {% block title %}Checkout{% endblock %}
 {% block maincontent %}
-<form method="POST" action="{% url 'start_order' %}">
 <div class="max-w-7xl mx-auto py-6 px-6 xl:px-0">
     <div class="flex flex-wrap -mx-3 lg:mx-0">
         <div class="product-container flex-grow w-full lg:w-2/3 px-3">
             <h1 class="product-title text-3xl font-bold">Checkout</h1>
-                {% csrf_token %}
             <div class="w-full mt-6">
                 <div class="mb-6 p-6 bg-blue-100 rounded-xl">
                     <h2 class="mb-5 text-xl font-semibold">Shipping Information</h2>
@@ -69,12 +67,61 @@
                     <span class="total-label text-xl font-semibold">Total</span>
                     <span class="total-amount text-xl font-semibold">${{ cart.get_total_price }}</span>
                 </div>
-                <button class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
+                <button onclick="buy(event)" class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
                     Confirm Checkout
-                </button>
+                </>
             </div>
         </div>
     </div>
 </div>
-</form>
+
 {% endblock %}
+
+{%block javascript%}
+    <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
+    <script>
+        function validateForm(data){
+            let errors = []
+            if (data.order_first_name == ''){
+                error.push('First Name is required')}
+            if (data.order_last_name == ''){
+                error.push('Last Name is required')}
+            if (data.order_state_province == ''){
+                error.push('State Province is required')}
+            if (data.order_country == ''){
+                error.push('Country is required')}
+            if (data.order_zip_postal_code == ''){
+                error.push('Zip Code is required')}
+            if (data.order_city == ''){
+                error.push('City/Place is required')}
+            if (data.order_address1 == ''){
+                error.push('Address 1 is required')}
+            if (data.order_email == ''){
+                error.push('Email is required')}
+            if (data.order_phone_number == ''){
+                error.push('Phone Number is required')}
+            if (data.order_email == ''){
+                error.push('Email is required')}
+            console.log(errors)
+            return errors}
+
+        function buy(event){
+            event.preventDefault();
+            let data = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'order_first_name': document.getElementById('order_first_name').value,
+                'order_last_name': document.getElementById('order_last_name').value,
+                'order_state_province': document.getElementById('order_state_province').value,
+                'order_country': document.getElementById('order_country').value,
+                'order_zip_postal_code': document.getElementById('order_zip_postal_code').value,
+                'order_city': document.getElementById('order_city').value,
+                'order_address1': document.getElementById('order_address1').value,
+                'order_email': document.getElementById('order_email').value,
+                'order_phone_number': document.getElementById('order_phone_number').value,
+            }
+            let errors = validateForm(data)
+
+            return false
+        }
+    </script>
+{%endblock%}

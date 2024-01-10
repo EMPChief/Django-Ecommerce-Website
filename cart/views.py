@@ -3,6 +3,7 @@ from .cart import Cart
 from django.contrib.auth.decorators import login_required
 from product.models import Product
 from accounts.models import UserProfile
+from django.conf import settings
 def add_to_cart(request, product_id):
     cart = Cart(request)
     cart.add(product_id)
@@ -52,8 +53,9 @@ def update_cart(request, product_id, action):
 
 @login_required
 def checkout(request):
+    pub_key = settings.STRIPE_API_KEY_PUBLISHABLE
     user_profile = UserProfile.objects.get(user=request.user)
-    context = {'user_profile': user_profile}
+    context = {'user_profile': user_profile, 'pub_key': pub_key}
     return render(request, 'cart/checkout.html', context)
 
 def hx_menu_cart(request):
