@@ -14,14 +14,14 @@ class OrderMain(models.Model):
         (PENDING, 'Pending'),
     )
 
-    order_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order_email = models.CharField(max_length=255)
-    order_address = models.CharField(max_length=255)
-    order_city = models.CharField(max_length=100)
-    order_state_province = models.CharField(max_length=100)
-    order_zip_postal_code = models.CharField(max_length=12)
-    order_country = models.CharField(max_length=50)
-    order_created_at = models.DateTimeField(auto_now_add=True)
+    order_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    order_email = models.CharField(max_length=255, null=True, blank=True)
+    order_address = models.CharField(max_length=255, null=True, blank=True)
+    order_city = models.CharField(max_length=100, null=True, blank=True)
+    order_state_province = models.CharField(max_length=100, null=True, blank=True)
+    order_zip_postal_code = models.CharField(max_length=12, null=True, blank=True)
+    order_country = models.CharField(max_length=50, null=True, blank=True)
+    order_created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
     paid = models.BooleanField(default=False)
     paid_amount = models.IntegerField(blank=True, null=True)

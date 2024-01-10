@@ -1,11 +1,12 @@
 {% extends 'mainpage/base.html' %} 
 {% block title %}Checkout{% endblock %}
 {% block maincontent %}
-
+<form method="POST" action="{% url 'start_order' %}">
 <div class="max-w-7xl mx-auto py-6 px-6 xl:px-0">
     <div class="flex flex-wrap -mx-3 lg:mx-0">
         <div class="product-container flex-grow w-full lg:w-2/3 px-3">
             <h1 class="product-title text-3xl font-bold">Checkout</h1>
+                {% csrf_token %}
             <div class="w-full mt-6">
                 <div class="mb-6 p-6 bg-blue-100 rounded-xl">
                     <h2 class="mb-5 text-xl font-semibold">Shipping Information</h2>
@@ -19,15 +20,23 @@
                             <input type="text" id="order_last_name" name="order_last_name" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user.last_name }}">
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium" for="order_zip_code">Zip Code</label>
-                            <input type="text" id="order_zip_code" name="order_zip_code" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.zip_postal_code }}"> 
+                            <label class="block mb-2 text-sm font-medium" for="order_state_province">State Province</label>
+                            <input type="text" id="order_state_province" name="order_state_province" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.state_province }}">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium" for="order_country">Country</label>
+                            <input type="text" id="order_country" name="order_country" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.country }}">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium" for="order_zip_postal_code">Zip Code</label>
+                            <input type="text" id="order_zip_postal_code" name="order_zip_postal_code" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.zip_postal_code }}"> 
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium" for="order_city">City/Place</label>
                             <input type="text" id="order_city" name="order_city" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.city }}">
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block mb-2 text-sm font-medium" for="address1">Address 1</label>
+                            <label class="block mb-2 text-sm font-medium" for="order_address1">Address 1</label>
                             <input type="text" id="order_address1" name="order_address1" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.address }}">
                         </div>
                     </div>
@@ -49,6 +58,7 @@
 
                 </div>
             </div>
+
         </div>
 
 
@@ -59,12 +69,12 @@
                     <span class="total-label text-xl font-semibold">Total</span>
                     <span class="total-amount text-xl font-semibold">${{ cart.get_total_price }}</span>
                 </div>
-                <a href="#" class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
+                <button class="checkout-button inline-block px-8 py-4 rounded-xl text-white bg-blue-500 hover:bg-blue-700 transition ease-in-out duration-150">
                     Confirm Checkout
-                </a>
+                </button>
             </div>
         </div>
     </div>
 </div>
-
+</form>
 {% endblock %}
