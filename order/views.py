@@ -17,7 +17,7 @@ def start_order(request):
         order_state_province = request.POST.get('order_state_province')
         order_country = request.POST.get('order_country')
         order = OrderMain.objects.create(
-            order_user=request.user,
+            user=request.user,
             order_email=order_email,
             order_address=order_address,
             order_city=order_city,

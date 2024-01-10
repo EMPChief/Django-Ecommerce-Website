@@ -15,62 +15,63 @@
     <div>
         <h2 class="mb-5 text-3xl font-bold text-center">My Orders</h2>
         <div class="w-full mb-6 p-6 flex flex-wrap bg-blue-100 rounded-xl">
-            <!-- Example Order -->
+            {%for order in request.user.OrderMain.all%}
             <div class="mb-6 flex justify-between">
                 <span>Order ID: 12345</span>
-            </div>
-            <div class="mb-6 w-full">
-                <div class="product mb-6 flex pr-6">
-                    <a href="#" class="product-image w-1/4"> 
-                        <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
-                    </a>
-                    <div class="product-info w-3/4 pl-6">
-                        <div class="product-name flex justify-between">
-                            <a href="#" class="text-lg font-bold">Product Name</a>
-                            <p class="mb-6 pt-1 text-gray-400">$999.1</p>
+                </div>
+                <div class="mb-6 w-full">
+                    <div class="product mb-6 flex pr-6">
+                        <a href="#" class="product-image w-1/4"> 
+                            <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
+                        </a>
+                        <div class="product-info w-3/4 pl-6">
+                            <div class="product-name flex justify-between">
+                                <a href="#" class="text-lg font-bold">Product Name</a>
+                                <p class="mb-6 pt-1 text-gray-400">$999.1</p>
+                            </div>
+                            <hr>
+                            <div class="mt-6">
+                                <p>Quantity: 1</p>
+                                <p>Date: 2024-01-08</p>
+                            </div>
+                            <!-- Additional Product Info Here -->
                         </div>
-                        <hr>
-                        <div class="mt-6">
-                            <p>Quantity: 1</p>
-                            <p>Date: 2024-01-08</p>
-                        </div>
-                        <!-- Additional Product Info Here -->
+                    </div>
+                    <!-- Total Price for Order -->
+                    <div class="flex justify-end text-xl font-bold">
+                        <span>Total Price: $999.1</span>
                     </div>
                 </div>
-                <!-- Total Price for Order -->
-                <div class="flex justify-end text-xl font-bold">
-                    <span>Total Price: $999.1</span>
-                </div>
-            </div>
-            <!-- Additional orders can be similarly added -->
-                        <!-- Example Order -->
-                        <div class="mb-6 flex justify-between">
-                            <span>Order ID: 12345</span>
-                        </div>
-                        <div class="mb-6 w-full">
-                            <div class="product mb-6 flex pr-6">
-                                <a href="#" class="product-image w-1/4"> 
-                                    <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
-                                </a>
-                                <div class="product-info w-3/4 pl-6">
-                                    <div class="product-name flex justify-between">
-                                        <a href="#" class="text-lg font-bold">Product Name</a>
-                                        <p class="mb-6 pt-1 text-gray-400">$999.1</p>
+                <!-- Additional orders can be similarly added -->
+                            <!-- Example Order -->
+                            <div class="mb-6 flex justify-between">
+                                <span>Order ID: 12345</span>
+                            </div>
+                            <div class="mb-6 w-full">
+                                <div class="product mb-6 flex pr-6">
+                                    <a href="#" class="product-image w-1/4"> 
+                                        <img class="hover-shadow-lg rounded-xl" src="https://picsum.photos/200" alt="Product Image">
+                                    </a>
+                                    <div class="product-info w-3/4 pl-6">
+                                        <div class="product-name flex justify-between">
+                                            <a href="#" class="text-lg font-bold">Product Name</a>
+                                            <p class="mb-6 pt-1 text-gray-400">$999.1</p>
+                                        </div>
+                                        <hr>
+                                        <div class="mt-6">
+                                            <p>Quantity: 1</p><br>
+                                            <p>Date: {{order.created_at}}</p>
+                                        </div>
+                                        <!-- Additional Product Info Here -->
                                     </div>
-                                    <hr>
-                                    <div class="mt-6">
-                                        <p>Quantity: 1</p><br>
-                                        <p>Date: 2024-01-08</p>
-                                    </div>
-                                    <!-- Additional Product Info Here -->
+                                </div>
+                                <!-- Total Price for Order -->
+                                <div class="flex justify-end text-xl font-bold">
+                                    <span>Total Price: $999.1</span>
                                 </div>
                             </div>
-                            <!-- Total Price for Order -->
-                            <div class="flex justify-end text-xl font-bold">
-                                <span>Total Price: $999.1</span>
-                            </div>
-                        </div>
-                        <!-- Additional orders can be similarly added -->
+                            <!-- Additional orders can be similarly added -->
+                            {%endfor%}
         </div>
     </div>
 </div>

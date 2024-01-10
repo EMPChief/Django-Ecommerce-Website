@@ -14,7 +14,7 @@ class OrderMain(models.Model):
         (PENDING, 'Pending'),
     )
 
-    order_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     order_email = models.CharField(max_length=255, null=True, blank=True)
     order_address = models.CharField(max_length=255, null=True, blank=True)
     order_city = models.CharField(max_length=100, null=True, blank=True)
