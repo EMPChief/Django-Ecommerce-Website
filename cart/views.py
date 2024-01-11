@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from product.models import Product
 from accounts.models import UserProfile
 from django.conf import settings
+
+
 def add_to_cart(request, product_id):
     cart = Cart(request)
     cart.add(product_id)
@@ -13,6 +15,9 @@ def add_to_cart(request, product_id):
 
 def cart(request):
     return render(request, 'cart/cart.html')
+
+def success(request):
+    return render(request, 'cart/success.html')
 
 def update_cart(request, product_id, action):
     cart = Cart(request)

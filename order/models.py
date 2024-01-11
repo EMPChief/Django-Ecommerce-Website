@@ -26,6 +26,11 @@ class OrderMain(models.Model):
     paid = models.BooleanField(default=False)
     paid_amount = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=100, default=PENDING, choices=ORDER_STATUS)
+    def get_order_total(self):
+        total = sum(item.price * item.quantity for item in self.orderitem_set.all())
+        return total
+    class Meta:
+        ordering = ['-order_created_at']
 
     def __str__(self):
         return f'{self.order_address}, {self.order_city}, {self.order_state_province}, {self.order_zip_postal_code}, {self.order_country}'
@@ -38,3 +43,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.name}'
+    
+    def get_total_price(self):
+        return self.price * self.quantity / 100

@@ -51,9 +51,7 @@
                     </div>
                 </div>
 
-                <div class="mb-6 p-6 bg-blue-100 rounded-xl">
-                    <h2 class="mb-5 text-xl font-semibold">Payment Information</h2>
-                    <!-- Add your payment information fields here -->
+                <div class="mb-6 p-6 bg-red-300 rounded-xl" id="error_message">
                 </div>
             </div>
         </div>
@@ -78,6 +76,8 @@
 {% block javascript %}
 <script type="application/javascript" src="https://js.stripe.com/v3/"></script>
 <script>
+    let el = document.getElementById('error_message');
+
     function validateForm(data){
         let errors = [];
         if (data.order_first_name == ''){
@@ -107,7 +107,15 @@
         if (data.order_phone_number == ''){
             errors.push('Phone Number is required');
         }
-        console.log(errors);
+        if (errors.length > 0){
+            let html = '<ul>';
+            errors.forEach((error) => {
+                html += '<li>' + error + '</li>';
+            });
+            el.innerHTML = html + '</ul>';
+        } else {
+            el.innerHTML = '';
+        }
         return errors;
     }
 

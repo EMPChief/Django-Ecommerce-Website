@@ -46,7 +46,7 @@
                     {% endfor %}
                 </div>
                 <div class="order-total flex justify-end text-xl font-bold">
-                    <span>Total Price: ${{ order.paid_amount }}</span>
+                    <span>Total Price: ${{ order.get_order_total }}</span>
                 </div>
             </div>
         {% empty %}
