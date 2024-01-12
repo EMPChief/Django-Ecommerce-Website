@@ -14,4 +14,3 @@ CMakeLists.txt.user
 .pyc
 /venv
 /.venv
-*.csv
