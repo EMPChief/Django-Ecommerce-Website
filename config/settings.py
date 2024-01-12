@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'product',
     'cart',
     'order',
+    'wsgi',
 ]
 
 MIDDLEWARE = [
