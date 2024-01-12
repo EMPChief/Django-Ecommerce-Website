@@ -32,7 +32,7 @@
             </div>
             <div class="mb-6">
                 <label for="phone" class="block text-sm font-bold mb-2">Phone:</label>
-                <input type="tel" id="phone" name="phone" value="{{ request.user.phone }}" class="w-full py-2 px-3 border border-gray-300 rounded-md focus:border-green-500 focus:ring-green-500 focus:outline-none">
+                <input type="tel" id="phone" name="phone" value="{{ request.user.userprofile.phone_number }}" class="w-full py-2 px-3 border border-gray-300 rounded-md focus:border-green-500 focus:ring-green-500 focus:outline-none">
             </div>
             <div class="mb-6">
                 <label for="password" class="block text-sm font-bold mb-2">Password:</label>

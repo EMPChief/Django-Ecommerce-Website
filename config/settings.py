@@ -20,9 +20,11 @@ SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 STRIPE_API_KEY_PUBLISHABLE = 'pk_test_1fvh41op07SCW8aOt71G5jt100K1BLb5MC'
 STRIPE_API_KEY_HIDDEN = 'sk_test_trGxRzjSBLIRHgdyGlwfrkiy00afOpcDja'
-# Application definition
+
 
 INSTALLED_APPS = [
+    "admin_interface",
+    "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +48,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
