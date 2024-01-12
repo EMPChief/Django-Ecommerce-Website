@@ -2,7 +2,8 @@ from django.db import models
 from PIL import Image
 from io import BytesIO
 from django.core.files import File
-# Create your models here.
+from django.contrib.auth.models import User
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
@@ -28,7 +29,7 @@ class Product(models.Model):
         ordering = ['created_at']
 
     def __str__(self):
-        return self.name
+        return f'{self.name} | {self.price} | {self.created_at}'
     
     def get_thumbnail(self):
         if self.thumbnail:
@@ -48,3 +49,24 @@ class Product(models.Model):
         img.save(thumb_io, format='JPEG', quality=85)
         thumbnail = File(thumb_io, name=image.name)
         return thumbnail
+    
+    def get_rating(self):
+        reviews = self.review.all()
+        total_rating = 0
+        for review in reviews:
+            total_rating += review.rating
+        if reviews:
+            return total_rating / len(reviews)
+        else:
+            return 0
+    
+class Review(models.Model):
+    product = models.ForeignKey(Product, related_name='review', on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
+    content = models.TextField()
+    created_by = models.ForeignKey(User, related_name='review', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.created_by} | {self.created_at} | {self.rating} | {self.product}'
+    
