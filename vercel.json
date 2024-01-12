@@ -24,7 +24,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "wsgi.py"
+        "dest": "wsgi/wsgi.py"
       }
     ],
     "cleanUrls": true
