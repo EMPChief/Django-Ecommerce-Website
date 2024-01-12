@@ -1,4 +1,5 @@
 pillow
 stripe
+django
 jmespath
 admin_interface
