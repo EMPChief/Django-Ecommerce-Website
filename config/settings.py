@@ -1,6 +1,6 @@
 from pathlib import Path
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,7 +14,8 @@ SECRET_KEY = 'django-insecure-s$g!u&#&4#)(ge(sz*_$pb^s=i%k2kzqm*e*0i*v8hjx3_g(qy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", ".now.sh"]
+
 
 
 SESSION_COOKIE_AGE = 86400
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'verceldb',
+        'USER': 'default',
+        'PASSWORD': 'guCiYn0SRh9s',
+        'HOST': 'ep-withered-morning-71521435-pooler.us-east-1.postgres.vercel-storage.com',
+        'PORT': '5432',
     }
 }
 
@@ -121,9 +126,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "ui/static")]
 
-
-
+STATIC_ROOT = os.path.join(BASE_DIR, "ui/staticfiles")
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
