@@ -1,2 +1,4 @@
 pillow
 stripe
+jmespath
+admin_interface

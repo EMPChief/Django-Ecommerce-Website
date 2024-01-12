@@ -52,7 +52,7 @@ def update_cart(request, product_id, action):
     else:
         item = None
 
-    response = render(request, 'cart/menu_cart.html', {'cart': cart, 'item': item})
+    response = render(request, 'cart/partials/menu_cart.html', {'cart': cart, 'item': item})
     response['HX-Trigger'] = 'update-menu-cart'
     return response
 
@@ -64,7 +64,7 @@ def checkout(request):
     return render(request, 'cart/checkout.html', context)
 
 def hx_menu_cart(request):
-    return render(request, 'cart/menu_cart.html')
+    return render(request, 'cart/partials/menu_cart.html')
 
 def hx_cart_total(request):
     return render(request, 'cart/partials/cart_total.html')
