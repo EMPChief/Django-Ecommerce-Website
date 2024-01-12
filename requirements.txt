@@ -3,3 +3,4 @@ stripe
 django
 jmespath
 admin_interface
+psycopg2-binary
