@@ -26,8 +26,6 @@ STRIPE_API_KEY_HIDDEN = 'sk_test_trGxRzjSBLIRHgdyGlwfrkiy00afOpcDja'
 
 
 INSTALLED_APPS = [
-    "admin_interface",
-    "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,8 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-X_FRAME_OPTIONS = "SAMEORIGIN"
-SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
