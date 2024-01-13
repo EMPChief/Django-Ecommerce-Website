@@ -7,10 +7,6 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 
-def custom_logout(request):
-    logout(request)
-    return redirect('frontpage')
-
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -46,12 +42,16 @@ def signup(request):
     return render(request, 'accounts/signup.html', context)
 
 
+@login_required(login_url='login')
+def custom_logout(request):
+    logout(request)
+    return redirect('frontpage')
 
-@login_required
+@login_required(login_url='login')
 def myaccount(request):
     return render(request, 'accounts/myaccount.html')
 
-@login_required
+@login_required(login_url='login')
 def edit_myaccount(request):
     if request.method == 'POST':
         user = request.user

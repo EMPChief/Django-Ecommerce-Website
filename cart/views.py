@@ -56,7 +56,7 @@ def update_cart(request, product_id, action):
     response['HX-Trigger'] = 'update-menu-cart'
     return response
 
-@login_required
+@login_required(login_url='login')
 def checkout(request):
     pub_key = settings.STRIPE_API_KEY_PUBLISHABLE
     user_profile = UserProfile.objects.get(user=request.user)

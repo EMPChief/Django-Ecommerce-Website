@@ -7,7 +7,7 @@ import json
 import stripe
 from django.conf import settings
 
-@login_required 
+@login_required(login_url='login')
 def start_order(request):
     if request.method != 'POST':
         return redirect('cart')
