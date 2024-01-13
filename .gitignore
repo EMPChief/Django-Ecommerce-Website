@@ -12,5 +12,4 @@ CMakeLists.txt.user
 *.db-wal
 /__pycache__
 .pyc
-/venv
 /.venv
