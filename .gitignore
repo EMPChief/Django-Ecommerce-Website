@@ -2,8 +2,6 @@
 __pycache__/
 data/candles
 build/
-.venv/
-/venv
 CMakeLists.txt.user
 *.db
 *.so
@@ -12,4 +10,3 @@ CMakeLists.txt.user
 *.db-wal
 /__pycache__
 .pyc
-/.venv
