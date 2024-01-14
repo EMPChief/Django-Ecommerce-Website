@@ -41,9 +41,11 @@ class Product(models.Model):
                 return self.thumbnail.url
             else:
                 return 'https://via.placeholder.com/240x240x.jpg'
-    def make_thumbnail(self, image, size=(100, 100)):  # Specify the desired size (e.g., 100x100)
+    def make_thumbnail(self, image, size=(300, 300)):
         img = Image.open(image)
-        img.convert('RGB')
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        
         img.thumbnail(size)
         thumb_io = BytesIO()
         img.save(thumb_io, format='JPEG', quality=85)
