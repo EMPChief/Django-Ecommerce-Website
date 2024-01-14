@@ -4,3 +4,6 @@ django
 jmespath
 psycopg2-binary
 django-admin-interface
+django-storages
+boto3
+python-dotenv
