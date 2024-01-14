@@ -41,7 +41,7 @@ class Product(models.Model):
                 return self.thumbnail.url
             else:
                 return 'https://via.placeholder.com/240x240x.jpg'
-    def make_thumbnail(self, image, size=(300, 300)):
+    def make_thumbnail(self, image, size=(100, 100)):  # Specify the desired size (e.g., 100x100)
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)
@@ -49,6 +49,7 @@ class Product(models.Model):
         img.save(thumb_io, format='JPEG', quality=85)
         thumbnail = File(thumb_io, name=image.name)
         return thumbnail
+
     
     def get_rating(self):
         reviews = self.review.all()
