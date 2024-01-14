@@ -31,6 +31,7 @@ STRIPE_API_KEY_HIDDEN = 'sk_test_trGxRzjSBLIRHgdyGlwfrkiy00afOpcDja'
 
 
 INSTALLED_APPS = [
+    'ckeditor',
     "admin_interface",
     "colorfield",
     'django.contrib.admin',
@@ -154,3 +155,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_FIELD = '/'
 LOGIN_REDIRECT_FIELD = '/'
 LOGIN_URL = '/login/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full', 
+        'height': 300,
+        'width': 600,
+    },
+}
+

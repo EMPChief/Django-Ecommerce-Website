@@ -10,7 +10,7 @@
       {% endif %}
         {% if product.description %}
         <div class="mt-4">
-            {{ product.description }}
+            {{ product.description|safe }}
         </div>
         {% endif %}
 
@@ -46,7 +46,8 @@
         </div>
         <div class="mb-4">
             <label for="content" class="block text-lg font-bold mb-2">Comment</label>
-            <textarea name="content" id="comment" cols="30" rows="10" class="w-full border border-gray-300 rounded p-2"></textarea>
+            <textarea name="content" id="comment" cols="30" rows="10" class="w-full border border-gray-300 rounded p-2 tinymce"></textarea>
+
         </div>
         <div>
             <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">Submit</button>
@@ -58,7 +59,7 @@
         <div>
             <h3><strong>Username: </strong>{{ review.created_by.username }}</h3>
             <p><strong>Date: </strong>{{ review.created_at|date:"Y-m-d" }}</p>
-            <p><strong>Content: </strong><br>{{ review.content }}</p>
+            <p><strong>Content: </strong><br>{{ review.content|safe }}</p>
             <p><strong>Rating: </strong>{{ review.rating }}</p>
         </div>
     </div>

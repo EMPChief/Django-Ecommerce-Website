@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Review
+from ckeditor.widgets import CKEditorWidget
+from django import forms
+
 # Create your views here.
 
 
