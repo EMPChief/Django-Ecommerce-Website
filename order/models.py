@@ -25,7 +25,9 @@ class OrderMain(models.Model):
     order_zip_postal_code = models.CharField(max_length=12)
     order_country = models.CharField(max_length=50)
     order_created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    
+    order_phone = models.CharField(max_length=15, blank=True, null=True)
+    payment_intent = models.CharField(max_length=255, blank=True, null=True)
+
     paid = models.BooleanField(default=False)
     paid_amount = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=100, default=PENDING, choices=ORDER_STATUS)

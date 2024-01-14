@@ -44,19 +44,20 @@ def start_order(request):
     
     order = OrderMain.objects.create(
         user=request.user,
-        order_first_name=data.get['order_first_name'],
-        order_last_name=data.get['order_last_name'],
-        order_phone=data.get['order_phone'],
-        order_email= data.get['order_email'],
-        order_address=data.get['order_address1'],
-        order_city=data.get['order_city'],
-        order_state_province=data.get['order_state_province'],
-        order_zip_postal_code=data.get['order_zip_postal_code'],
-        order_country=data.get['order_country'],
+        order_first_name=data.get('order_first_name'),
+        order_last_name=data.get('order_last_name'),
+        order_phone=data.get('order_phone'),
+        order_email=data.get('order_email'),
+        order_address=data.get('order_address1'),
+        order_city=data.get('order_city'),
+        order_state_province=data.get('order_state_province'),
+        order_zip_postal_code=data.get('order_zip_postal_code'),
+        order_country=data.get('order_country'),
         payment_intent=payment_intent,
         paid=True,
         paid_amount=total_price,
     )
+
 
     for item in cart:
         product = item['product']
