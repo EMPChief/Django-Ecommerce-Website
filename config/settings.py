@@ -31,9 +31,6 @@ STRIPE_API_KEY_HIDDEN = 'sk_test_trGxRzjSBLIRHgdyGlwfrkiy00afOpcDja'
 
 
 INSTALLED_APPS = [
-    'tinymce_4',
-    'grappelli',
-    'filebrowser',
     "admin_interface",
     "colorfield",
     'django.contrib.admin',
@@ -52,7 +49,6 @@ INSTALLED_APPS = [
     'order',
     'wsgi',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,5 +154,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_FIELD = '/'
 LOGIN_REDIRECT_FIELD = '/'
 LOGIN_URL = '/login/'
-
-
