@@ -7,3 +7,4 @@ django-admin-interface
 django-storages
 boto3
 python-dotenv
+gunicorn
