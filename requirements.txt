@@ -1,10 +1,10 @@
-pillow
-stripe
+boto3
 django
-jmespath
-psycopg2-binary
 django-admin-interface
 django-storages
-boto3
-python-dotenv
 gunicorn
+jmespath
+pillow
+psycopg2-binary
+python-dotenv
+stripe
