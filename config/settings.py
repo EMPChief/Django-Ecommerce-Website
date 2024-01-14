@@ -1,8 +1,13 @@
 from pathlib import Path
 from pathlib import Path
 import os
+import sys
 import psycopg2
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pathlib import Path
+import os
+from django.core.management.utils import get_random_secret_key
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -10,12 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s$g!u&#&4#)(ge(sz*_$pb^s=i%k2kzqm*e*0i*v8hjx3_g(qy'
+SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG_MODE', False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost,*').split(',')
 
 
 
@@ -81,20 +86,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+DEVELOPMENT = os.environ.get('DEV_MODE', False) == 'True'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USERNAME'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
-        'OPTIONS': {
-            'sslmode': os.environ.get('DB_SSLMODE'),
-        },
+if DEVELOPMENT:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USERNAME'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+            'OPTIONS': {
+                'sslmode': os.environ.get('DB_SSLMODE'),
+            },
+        }
+    }
 
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
