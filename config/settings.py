@@ -31,7 +31,9 @@ STRIPE_API_KEY_HIDDEN = 'sk_test_trGxRzjSBLIRHgdyGlwfrkiy00afOpcDja'
 
 
 INSTALLED_APPS = [
-    'ckeditor',
+    'tinymce_4',
+    'grappelli',
+    'filebrowser',
     "admin_interface",
     "colorfield",
     'django.contrib.admin',
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'order',
     'wsgi',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -156,11 +159,4 @@ LOGOUT_REDIRECT_FIELD = '/'
 LOGIN_REDIRECT_FIELD = '/'
 LOGIN_URL = '/login/'
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full', 
-        'height': 300,
-        'width': 600,
-    },
-}
 

@@ -9,6 +9,7 @@ psycopg2-binary
 python-dotenv
 stripe
 dj-database-url
+django-tinymce
 sqlparse
 django-crispy-forms
-pip install django-ckeditor
+django-tinymce-4

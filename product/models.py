@@ -3,7 +3,7 @@ from PIL import Image
 from io import BytesIO
 from django.core.files import File
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
@@ -20,7 +20,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
-    description = RichTextField()
+    description = models.TextField()
     price = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
@@ -66,7 +66,7 @@ class Product(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='review', on_delete=models.CASCADE)
     rating = models.IntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)))
-    content = RichTextField()
+    content = models.TextField()
     created_by = models.ForeignKey(User, related_name='review', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
