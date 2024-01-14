@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG_MODE', True)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'dolphin-app-vlfzt.ondigitalocean.app', 'empchief.com', 'https://empchief.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'dolphin-app-vlfzt.ondigitalocean.app', 'empchief.com', 'https://empchief.com', 'eco.empchief.com', 'https://eco.empchief.com']
 
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
