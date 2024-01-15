@@ -32,7 +32,7 @@ class OrderMain(models.Model):
     paid_amount = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=100, default=PENDING, choices=ORDER_STATUS)
     def get_order_total(self):
-        total = sum(item.price * item.quantity for item in self.orderitem_set.all())
+        total = sum(item.get_total_price() for item in self.orderitem_set.all())
         return total
     class Meta:
         ordering = ['-order_created_at']
@@ -52,4 +52,4 @@ class OrderItem(models.Model):
 
     
     def get_total_price(self):
-        return self.price * self.quantity / 100
+        return self.price * self.quantity
