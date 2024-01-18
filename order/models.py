@@ -29,27 +29,28 @@ class OrderMain(models.Model):
     payment_intent = models.CharField(max_length=255, blank=True, null=True)
 
     paid = models.BooleanField(default=False)
-    paid_amount = models.IntegerField(blank=True, null=True)
+    paid_amount = models.FloatField(blank=True, null=True)  # Changed to FloatField
     status = models.CharField(max_length=100, default=PENDING, choices=ORDER_STATUS)
+
     def get_order_total(self):
         total = sum(item.get_total_price() for item in self.orderitem_set.all())
         return total
+
     class Meta:
         ordering = ['-order_created_at']
 
     def __str__(self):
-        return f'Order ID: {self.id} | Name: {self.order_first_name} | Address: {self.order_address}, {self.order_city} | Country: {self.order_country} | Created at: {self.order_created_at}, Status | {self.status}'
+        return f'Order ID: {self.id} | Name: {self.order_first_name} | Address: {self.order_address}, {self.order_city} | Country: {self.order_country} | Created at: {self.order_created_at}, Status: {self.status}'
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey(OrderMain, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
-    price = models.IntegerField(blank=True, null=True)
+    price = models.FloatField(blank=True, null=True)  # Changed to FloatField
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return f'Order ID: {self.order.id} | Item: {self.quantity} x {self.product.name}'
 
-    
     def get_total_price(self):
         return self.price * self.quantity
