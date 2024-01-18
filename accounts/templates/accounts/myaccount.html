@@ -21,7 +21,7 @@
                 <div class="order-header mb-6">
                     <span class="order-id">Order ID: {{ order.id }}</span><br>
                     <span class="order-date">Date: {{ order.order_created_at }}</span><br>
-                    <span class="order-status">Status: {{ order.get_status_display }}</span>
+                    <span class="order-status">Status: {{ order.status }}</span>  <!-- Updated: Display the order status directly -->
                 </div>
                 <div class="order-items">
                     {% for item in order.orderitem_set.all %}
