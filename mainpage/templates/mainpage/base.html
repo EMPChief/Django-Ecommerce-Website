@@ -22,53 +22,63 @@
   <body>
     <nav class="border-b border-gray-500">
       <div class="max-w-6xl mx-auto py-2 px-6 xl:px-0 flex justify-between items-center">
-          <div class="flex items-center space-x-4">
-              <a href="{% url 'frontpage' %}" class="text-lg text-blue-600 font-semibold hover:text-blue-800">
-                  EMP Shopping
-              </a>
-              <div class="hidden lg:flex space-x-4">
-                  <a href="{% url 'shop' %}" class="text-green-500 hover:text-green-700">Shop</a>
-                  <a href="#" class="text-green-500 hover:text-green-700">About</a>
-              </div>
+        <div class="flex items-center space-x-4">
+          <a href="{% url 'frontpage' %}" class="text-lg text-blue-600 font-semibold hover:text-blue-800">
+            EMP Shopping
+          </a>
+          <div class="hidden lg:flex space-x-4">
+            <a href="{% url 'shop' %}" class="text-green-500 hover:text-green-700">Shop</a>
+            <a href="#" class="text-green-500 hover:text-green-700">About</a>
           </div>
-          <div class="lg:hidden">
-              <button id="menuButton" class="text-green-500 focus:outline-none">
-                  <i class="fas fa-bars"></i>
-              </button>
+        </div>
+        <div class="lg:hidden">
+          <button id="menuButton" class="text-green-500 focus:outline-none">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div class="hidden lg:flex items-center space-x-4">
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="text-green-500 hover:text-green-700">Log Out</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="text-green-500 hover:text-green-700">Log In</a>
+            <a href="{% url 'signup' %}" class="text-green-500 hover:text-green-700">Sign Up</a>
+          {% endif %}
+          <a href="{%url 'myaccount'%}" class="text-green-500 hover:text-green-700">
+            <i class="fas fa-user"></i>
+          </a>
+          <!-- Display cart amount on large screen -->
+          <span class="text-green-500 hover:text-green-700" id="cart-amount">
+            {% if cart_total > 0 %}
+              {{ cart_total }}
+            {% endif %}
+          </span>
+          <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML">
+            {% include 'cart/partials/menu_cart.html' %}
           </div>
-          <div class="hidden lg:flex items-center space-x-4">
-              {% if request.user.is_authenticated %}
-                  <a href="{% url 'logout' %}" class="text-green-500 hover:text-green-700">Log Out</a>
-              {% else %}
-                  <a href="{% url 'login' %}" class="text-green-500 hover:text-green-700">Log In</a>
-                  <a href="{% url 'signup' %}" class="text-green-500 hover:text-green-700">Sign Up</a>
-              {% endif %}
-              <a href="{%url 'myaccount'%}" class="text-green-500 hover:text-green-700">
-                  <i class="fas fa-user"></i>
-              </a>
-              <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML" class="lg:hidden">
-                  {% include 'cart/partials/menu_cart.html' %}
-              </div>
-          </div>
+        </div>
       </div>
       <div id="menu" class="hidden lg:hidden flex flex-col items-center mt-4">
-          <a href="{% url 'shop' %}" class="block py-2 text-green-500 hover:text-green-700">Shop</a>
-          <a href="#" class="block py-2 text-green-500 hover:text-green-700">About</a>
-          {% if request.user.is_authenticated %}
-              <a href="{% url 'logout' %}" class="block py-2 text-green-500 hover:text-green-700">Log Out</a>
-          {% else %}
-              <a href="{% url 'login' %}" class="block py-2 text-green-500 hover:text-green-700">Log In</a>
-              <a href="{% url 'signup' %}" class="block py-2 text-green-500 hover:text-green-700">Sign Up</a>
-          {% endif %}
-          <a href="{%url 'myaccount'%}" class="block py-2 text-green-500 hover:text-green-700">
-              <i class="fas fa-user"></i>
-          </a>
-          <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML">
-              {% include 'cart/partials/menu_cart.html' %}
-          </div>
+        <a href="{% url 'shop' %}" class="block py-2 text-green-500 hover:text-green-700">Shop</a>
+        <a href="#" class="block py-2 text-green-500 hover:text-green-700">About</a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="block py-2 text-green-500 hover:text-green-700">Log Out</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="block py-2 text-green-500 hover:text-green-700">Log In</a>
+          <a href="{% url 'signup' %}" class="block py-2 text-green-500 hover:text-green-700">Sign Up</a>
+        {% endif %}
+        <a href="{%url 'myaccount'%}" class="block py-2 text-green-500 hover:text-green-700">
+          <i class="fas fa-user"></i>
+        </a>
+        <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML">
+          {% include 'cart/partials/menu_cart.html' %}
+        </div>
       </div>
-  </nav>
-
+    </nav>
+    
+    
+  
+  
+  
 
     
     <main>

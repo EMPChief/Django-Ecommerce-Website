@@ -60,8 +60,16 @@ def update_cart(request, product_id, action):
 def checkout(request):
     pub_key = settings.STRIPE_API_KEY_PUBLISHABLE
     user_profile = UserProfile.objects.get(user=request.user)
-    context = {'user_profile': user_profile, 'pub_key': pub_key}
+    cart = Cart(request)
+    total_price = cart.get_total_price()
+    
+    context = {
+        'user_profile': user_profile,
+        'pub_key': pub_key,
+        'total_price': total_price,
+    }
     return render(request, 'cart/checkout.html', context)
+
 
 def hx_menu_cart(request):
     return render(request, 'cart/partials/menu_cart.html')

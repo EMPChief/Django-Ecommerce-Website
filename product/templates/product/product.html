@@ -4,10 +4,10 @@
 <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
     <div class="information w-full lg:w-2/5 lg:pr-6 order-2 lg:order-1">
         <h1 class="text-3xl font-bold">{{ product.name }}</h1>
-        <p class="mt-2 text-green-500 text-xl">${{ product.price }}</p>
+        <p class="mt-2 text-green-500 text-xl">${{ product.price|floatformat:2 }}</p>
         {% if product.get_rating > 0%}
-        <p class="mt-2 text-green-600">Rating: {{ product.get_rating }} / 5</p>
-      {% endif %}
+        <p class="mt-2 text-green-600">Rating: {{ product.get_rating|floatformat:2 }} / 5</p>
+        {% endif %}
         {% if product.description %}
         <div class="mt-4">
             {{ product.description }}
@@ -21,7 +21,7 @@
         hx-swap="outerHTML">
          <span>Add to Cart</span>
          <i class="fas fa-shopping-cart"></i>
-     </a>
+        </a>
     </div>
 
     <div class="image w-full lg:w-3/5 order-1 lg:order-2 mb-6 lg:mb-0">
