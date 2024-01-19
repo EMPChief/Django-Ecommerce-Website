@@ -1,5 +1,5 @@
 from django.db import models
-from PIL import Image
+from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files import File
 from django.contrib.auth.models import User
@@ -20,6 +20,10 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    weight = models.FloatField(blank=True, null=True)
+    flavour = models.CharField(max_length=255, blank=True, null=True)
+    product_name = models.CharField(max_length=255, blank=True, null=True)
+    company = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField()
     price = models.FloatField()
@@ -50,13 +54,16 @@ class Product(models.Model):
                 return 'https://via.placeholder.com/240x240x.jpg'
     
     def make_thumbnail(self, image, size=(300, 300)):
+        """
+        Create and save the thumbnail for the product image
+        """
         img = Image.open(image)
         if img.mode != 'RGB':
             img = img.convert('RGB')
-        
-        img.thumbnail(size)
+        img.thumbnail(size, Image.ANTIALIAS)
+        thumb = ImageOps.fit(img, size, Image.ANTIALIAS, (0.5, 0.5))
         thumb_io = BytesIO()
-        img.save(thumb_io, format='JPEG', quality=85)
+        thumb.save(thumb_io, format='JPEG', quality=85)
         thumbnail = File(thumb_io, name=image.name)
         return thumbnail
     

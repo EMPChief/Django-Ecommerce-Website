@@ -1,55 +1,50 @@
 {% extends 'mainpage/base.html' %} 
-{%block title%}Shop{%endblock%}
+{% block title %}Shop{% endblock %}
 {% block maincontent %}
-<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
-  <div class="filters w-full lg:w-1/4 p-4 bg-gray-200">
+<div class="container mx-auto flex flex-wrap py-6 px-4 md:px-6 lg:px-8">
+  
+  <div class="filters w-full lg:w-1/4 p-4 bg-gray-100 rounded-lg shadow">
     <form method="get" action=".">
-      <div class="mb-3">
-        <label for="search" class="block text-gray-700 text-sm font-bold mb-2">Search</label>
+      <div class="mb-4">
+        <label for="search" class="block text-gray-800 text-sm font-semibold mb-2">Search</label>
         <div class="flex">
           <input
             id="search"
             type="text"
-            name = "query"
-            class="shadow appearance-none border rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            name="query"
+            class="flex-grow shadow-sm appearance-none border rounded-l-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:border-blue-300"
             placeholder="Search"
           />
-          <button type="submit" class="bg-blue-400 rounded-r border-0 p-2">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 rounded-r-md border-0 p-2">
             <i class="fas fa-search text-white"></i>
           </button>
         </div>
       </div>
     </form>
-    <h3 class"mt-6 mb-3 text-xl uppercase">Catagories</h3>
+
+    <h3 class="mt-6 mb-3 text-xl font-semibold uppercase">Categories</h3>
     <ul class="space-y-2">
-      <li class="{% if not active_category %}text-green-500{% else %}text-gray-500 hover:text-gray-700{% endif %}">
-          <a href="{% url 'shop' %}">All Cartharies</a>
+      <li class="{% if not active_category %}text-green-600{% else %}text-gray-600 hover:text-gray-800{% endif %}">
+        <a href="{% url 'shop' %}">All Categories</a>
       </li>
       {% for category in categories %}
-          {% if category.product_set.exists %}
-              <li>
-                  <a href="{% url 'shop' %}?category={{ category.slug }}"
-                     class="{% if category.slug == active_category %}text-green-500{% else %}text-gray-500 hover:text-gray-700{% endif %}">
-                      {{ category.name }}
-                  </a>
-              </li>
-          {% endif %}
+        {% if category.product_set.exists %}
+          <li>
+            <a href="{% url 'shop' %}?category={{ category.slug }}"
+               class="{% if category.slug == active_category %}text-green-600{% else %}text-gray-600 hover:text-gray-800{% endif %}">
+                {{ category.name }}
+            </a>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
-    
-    
-  
-  
-  
-  
-  
   </div>
 
-  <div class="products w-full lg:w-3/4 flex items-center flex-wrap">
+  <div class="products w-full lg:w-3/4 flex flex-wrap justify-start items-stretch mt-4 lg:mt-0">
     {% for product in products %}
-    {%include 'product/partials/product_list_item.html'%}
+      {% include 'product/partials/product_list_item.html' %}
     {% endfor %}
   </div>
-</div>
 
+</div>
 {% endblock %}
