@@ -46,7 +46,6 @@
           <a href="{%url 'myaccount'%}" class="text-green-500 hover:text-green-700">
             <i class="fas fa-user"></i>
           </a>
-          <!-- Display cart amount on large screen -->
           <span class="text-green-500 hover:text-green-700" id="cart-amount">
             {% if cart_total > 0 %}
               {{ cart_total }}
@@ -66,11 +65,13 @@
           <a href="{% url 'login' %}" class="block py-2 text-green-500 hover:text-green-700">Log In</a>
           <a href="{% url 'signup' %}" class="block py-2 text-green-500 hover:text-green-700">Sign Up</a>
         {% endif %}
-        <a href="{%url 'myaccount'%}" class="block py-2 text-green-500 hover:text-green-700">
-          <i class="fas fa-user"></i>
-        </a>
-        <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML">
-          {% include 'cart/partials/menu_cart.html' %}
+        <div class="flex items-center space-x-4">
+          <a href="{%url 'myaccount'%}" class="text-green-500 hover:text-green-700">
+            <i class="fas fa-user"></i>
+          </a>
+          <div hx-get="{% url 'hx_menu_cart' %}" hx-trigger="update-menu-cart from body" hx-swap="innerHTML">
+            {% include 'cart/partials/menu_cart.html' %}
+          </div>
         </div>
       </div>
     </nav>
