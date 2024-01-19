@@ -1,7 +1,7 @@
 {% extends 'mainpage/base.html' %} 
 {% block title %}Checkout{% endblock %}
 {% block maincontent %}
-<div class="max-w-7xl mx-auto py-6 px-6 xl:px-0">
+<div class="container mx-auto py-6 px-4 md:px-6 lg:px-8">
     <div class="flex flex-wrap -mx-3 lg:mx-0">
         <div class="product-container flex-grow w-full lg:w-2/3 px-3">
             <h1 class="product-title text-3xl font-bold">Checkout</h1>
@@ -50,8 +50,7 @@
                         <input type="tel" id="order_phone_number" name="order_phone_number" class="w-full p-3 rounded-xl border border-gray-300" value="{{ user_profile.phone_number }}">
                     </div>
                 </div>
-
-                <div class="mb-6 p-6 bg-red-300 rounded-xl" id="error_message">
+                <div class="mb-6 p-6 bg-red-300 rounded-xl hidden" id="error_message">
                 </div>
             </div>
         </div>
@@ -76,6 +75,8 @@
                 </button>
             </div>
         </div>
+    </div>
+</div>
         
 
         
@@ -91,6 +92,8 @@
 
     function validateForm(data){
         let errors = [];
+        let el = document.getElementById('error_message');
+    
         if (data.order_first_name == ''){
             errors.push('First Name is required');
         }
@@ -118,18 +121,20 @@
         if (data.order_phone_number == ''){
             errors.push('Phone Number is required');
         }
+    
         if (errors.length > 0){
             let html = '<ul>';
             errors.forEach((error) => {
                 html += '<li>' + error + '</li>';
             });
             el.innerHTML = html + '</ul>';
+            el.classList.remove('hidden');
         } else {
             el.innerHTML = '';
+            el.classList.add('hidden');
         }
         return errors;
     }
-
 function buy(event){
     event.preventDefault();
     let data = {
@@ -143,7 +148,7 @@ function buy(event){
         'order_address1': document.getElementById('order_address1').value,
         'order_email': document.getElementById('order_email').value,
         'order_phone_number': document.getElementById('order_phone_number').value,
-        'total_price_cents': {{ cart.get_total_price|floatformat:2 }} * 100,  // Pass total price in cents
+        'total_price_cents': {{ cart.get_total_price|floatformat:2 }} * 100,
     };
     let errors = validateForm(data);
 

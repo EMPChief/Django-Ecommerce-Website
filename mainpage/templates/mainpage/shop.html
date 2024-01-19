@@ -1,9 +1,9 @@
-{% extends 'mainpage/base.html' %} 
+{% extends 'mainpage/base.html' %}
 {% block title %}Shop{% endblock %}
 {% block maincontent %}
-<div class="container mx-auto flex flex-wrap py-6 px-4 md:px-6 lg:px-8">
-  
-  <div class="filters w-full lg:w-1/4 p-4 bg-gray-100 rounded-lg shadow">
+<div class="container mx-auto flex flex-col lg:flex-row py-6 px-4 md:px-6 lg:px-8">
+
+  <div class="filters w-full lg:w-1/4 p-4 bg-gray-100 rounded-lg shadow mb-6 lg:mb-0 lg:mr-6">
     <form method="get" action=".">
       <div class="mb-4">
         <label for="search" class="block text-gray-800 text-sm font-semibold mb-2">Search</label>
@@ -40,7 +40,7 @@
     </ul>
   </div>
 
-  <div class="products w-full lg:w-3/4 flex flex-wrap justify-start items-stretch mt-4 lg:mt-0">
+  <div class="products w-full lg:w-3/4 flex flex-wrap justify-start items-stretch">
     {% for product in products %}
       {% include 'product/partials/product_list_item.html' %}
     {% endfor %}

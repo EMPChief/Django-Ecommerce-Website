@@ -1,10 +1,15 @@
 {% extends 'mainpage/base.html' %} 
-{% block title %}success{% endblock %}
+{% block title %}Success{% endblock %}
 {% block maincontent %}
-<div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
-    <div class="w-full lg:w-3/4">
-        <h1 class="product-title text-3xl font-bold">success</h1>
-        <p class="text-xl">Thank you for your order. We will contact you soon.</p>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="w-full lg:w-3/4 mx-auto bg-white shadow rounded-lg p-6">
+        <h1 class="text-3xl lg:text-4xl font-bold text-center text-green-600">Success!</h1>
+        <p class="text-lg lg:text-xl text-gray-700 text-center mt-4">Thank you for your order. We will contact you soon.</p>
+        <div class="mt-6 flex justify-center">
+            <a href="{% url 'shop' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                Continue Shopping
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}
